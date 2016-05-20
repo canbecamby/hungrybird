@@ -1,0 +1,45 @@
+<div class="bg">
+  <div class="container">
+  </div>
+</div>
+
+<div style="font-family: '나눔고딕', serif;">
+<h1><font color="white" style="padding-left: 400px;"> 트위터인듯 트위터아닌 트위터같은</font></h1>
+
+<div class="container">               
+  <form style="margin-top:40px;" action="/home/write" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <font color="white"><label for="exampleInputTitle">제목</label></font>
+      <input type="text" name= "title" class="form-control" id="exampleInputTitle">
+    </div>
+    <div class="form-group">
+      <font color="white"><label for="comment">내용</label></font>
+      <textarea class="form-control" rows="5" id="content" name="content"></textarea>
+    </div>
+    <div class="rain"> 
+      <input type="file" name="image_file" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-default" style="padding-top: 6px;margin-top: 8px;">보내기</button>
+  </form>
+
+  <% @posts.each do |p| %>
+    <div class="well" style="margin-top: 20px;">
+      <span style="font-weight:bold;"><%= p.title %></span><br>
+      <%= p.content %><br>
+      <img src= "<%= p.my_image.url %>" ><br>
+      
+     <form style="margin-top:20px;" action="/home/reply_write" method="post">
+        <div class="form-group">
+          <input type="hidden" value="<%= p.id %>" name="id_of_post">
+          <textarea class="form-control" rows="2" id="content" name="content" style="padding-right: 30px; width: 1044px;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <% p.replies.each do |r| %>
+        <p><%= r.content %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>     
+      
